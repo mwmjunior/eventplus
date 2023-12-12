@@ -50,29 +50,24 @@ export const Select = ({
   required,
   id,
   name,
-  options,
+  options = [],
   fnManipulator,
   additionalClass = "",
-  value,
+  value = '',
+  handleClick,
+  firstOption = 'Selecione:'
 }) => {
   return (
     <select
       name={name}
       id={id}
-      required={required}
       className={`input-component ${additionalClass}`}
       onChange={fnManipulator}
+      onClick={handleClick}
       value={value}
     >
-      <option value="">Tipo Evento</option>
-      {/* options.map(??) */}
-      {options.map((o) => {
-        return (
-          <option key={Math.random()} value={o.value}>
-            {o.text}
-          </option>
-        );
-      })}
+      <option value="">{firstOption}</option>
+      {options.map((option, index) => <option key={index} value={option.value}>{option.text}</option>)}
     </select>
   );
 };

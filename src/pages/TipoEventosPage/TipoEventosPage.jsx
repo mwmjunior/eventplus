@@ -11,6 +11,7 @@ import TableTp from "./TableTP/TableTP";
 import Notification from "../../components/Notification/Notification";
 import Spinner from "../../components/Spinner/Spinner";
 
+
 const TipoEventosPage = () => {
   // states
   const [frmEdit, setFrmEdit] = useState(false);
@@ -20,11 +21,6 @@ const TipoEventosPage = () => {
   const [notifyUser, setNotifyUser] = useState(); //componente notification
   const [showSpinner, setshowSpinner] = useState(false); //componente spinner
 
-
-  const [nomeEvento,  setNomeEvento] = useState("");
-  const [dataEvento,  setDataEvento] = useState();
-  const [descricao, setDescricao] = useState("");
-  
 
 
   useEffect(() => {
@@ -73,10 +69,7 @@ const TipoEventosPage = () => {
       });
 
       
-       //limpa o state
-       setNomeEvento('');
-       setDescricao('');
-       setDataEvento('');
+     
        
 
       //atualiza os dados na api.

@@ -31,6 +31,8 @@ const EventosPage = () => {
   const [notifyUser, setNotifyUser] = useState(); //componente notification
   const idInstituicao = "4558fe2f-4c1f-4cca-812f-8aa2b3511d9e";
 
+  
+
   useEffect(() => {
     // define a chamada em nossa api
     //Declaração de uma função assíncrona chamada "loadEventsType" para carregar os eventos.
@@ -95,6 +97,12 @@ const EventosPage = () => {
         showMessage: true,
       });
 
+        //limpa o state
+        setNomeEvento('');
+        setDescricao('');
+        setDataEvento('');
+        setIdTipoEvento('');
+
       if (retorno.status === 201) {
         //atualiza os dados na api.
         const response = await api.get(eventsResource);
@@ -116,17 +124,29 @@ const EventosPage = () => {
     }
   }
 
+  
+  
   /****Editar evento */
   async function handleUpdate(e) {
     e.preventDefault();
 
-    const retorno = await api.put(eventsResource + "/" + idEvento, {
+    const retorno = await api.put(`${eventsResource}/${idEvento}`, {
       nomeEvento: nomeEvento,
       descricao: descricao,
       dataEvento: dataEvento,
+      idTipoEvento: idTipoEvento,
+      idInstituicao: idInstituicao,
     });
     try {
       if (retorno.status === 204) {
+
+        //limpa campo formulario depois de atualizar
+        setNomeEvento("");
+        setDescricao("");
+        setDataEvento("");
+        setTipoEvento([]);
+        const atualizaEvento = await api.get(`${eventsResource}`);
+
         //notificar o usúario
         setNotifyUser({
           titleNote: "Aviso",
@@ -151,6 +171,28 @@ const EventosPage = () => {
       });
     }
   }
+
+   //SHOWUPDATEFORM
+   async function showUpdateForm(idElement) {
+    setFrmEdit(true);
+    setIdEvento(idElement);
+    
+    try {
+      const promise = await api.get(`${eventsResource}/${idElement}`, {
+        idElement,
+      });
+
+      setNomeEvento(promise.data.nomeEvento);
+      setDescricao(promise.data.descricao);
+      setDataEvento(promise.data.dataEvento.slice(0, 10));
+      setIdTipoEvento(promise.data.idTipoEvento);
+    } catch (error) {
+      
+    }
+    
+  }
+
+
 
   //*****Apagar Evento******* */
 
@@ -337,7 +379,7 @@ const EventosPage = () => {
 
           <TableEvento
             dados={eventos}
-            // fnUpdate={showUpdateForm}
+            fnUpdate={showUpdateForm}
             fnDelete={handleDelete}
           />
         </Container>

@@ -12,6 +12,20 @@ export const proximoEventsResouce = '/Evento/ListarProximos'
  * Rota para o recurso Tipo de Eventos
  */
 export const eventsTypeResource = '/TiposEvento'
+/**
+ * Rota para o recurso Tipo de Eventos
+ */
+export const commentaryEventResources = '/ComentariosEvento/BuscarPorIdUsuario'
+
+
+/**
+ * Rota para o recurso Listar Presencas Evento
+ */
+export const presencesEventResources = '/PresencasEvento';
+
+export const loginResources = '/Login'
+
+export const myEventsResources = "/PresencasEvento/ListarMinhas"
 
 const apiPort = '7118';
 const localApiUrl = `https://localhost:${apiPort}/api`;

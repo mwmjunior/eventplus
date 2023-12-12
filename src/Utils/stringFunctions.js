@@ -8,3 +8,6 @@ export const dateFormatDbToView = data => {
     return `${data[2]}/${data[1]}/${data[0]}`;
 }
 
+export const transformDate = data => {
+    return (data.substr(0, 10))
+}
